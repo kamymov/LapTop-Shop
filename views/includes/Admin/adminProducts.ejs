@@ -1,0 +1,44 @@
+<%- include('../start.ejs') %>
+
+    <%- include('../header.ejs') %>
+
+        <%- include('../navBar.ejs') %>
+
+            <main>
+                <div class="grid">
+                    <% if(prod.length>= 0) { %>
+
+                        <% prod.map(c=>{ %>
+                            <article class="card product-item" style="max-height:750px;">
+                                <header class="card__header">
+                                    <h1 class="product__title">
+                                        <%= c.title %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= c.imageURL %> " alt="<%= c.title %> " />
+                                </div>
+                                <% if(c.quantity <=5){ %>
+                                    <small class="text-center text-danger">تنها <%= c.quantity %> تعداد از این محصول
+                                            باقی مانده است </small>
+                                    <% } %>
+                                <div class="card__content">
+                                    <h2 class="product__price">
+                                        <%= c.price %>
+                                    </h2>
+                                    <h3 class="text-center text-info mt-3.5">تومان</h3>
+                                    <!-- <p class="product__description"><%= c.discription %></p> -->
+                                </div>
+                                        <div class="card__actions">
+                                            <a href="/admin/delete-product/<%= c._id %>" class="btn btn-danger">حذف</a>
+                                            <a href="/admin/edit-product/<%= c._id %>" class="btn btn-warning">ویرایش</a>
+                                        </div>
+                            </article>
+                            <% }) %>
+                                <% } else{ %>
+                                    <h1 class="text-center text-danger">هیچ محصولی ثبت نشده است</h1>
+                                    <% } %>
+                </div>
+            </main>
+
+            <%- include('../footer.ejs') %>

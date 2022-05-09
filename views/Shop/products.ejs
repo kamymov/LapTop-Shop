@@ -1,0 +1,48 @@
+<%- include('../includes/start.ejs') %>
+
+    <%- include('../includes/header.ejs') %>
+
+        <%- include('../includes/navBar.ejs') %>
+
+            <main>
+                <% if(errorMessage.length > 0){ %>
+                    <div class="alert alert-danger">
+                        <h3 class="text-center text-danger"><%= errorMessage %></h3>
+                    </div>
+                <% }else if(successMessage.length > 0){ %>
+                        <div class="alert alert-success">
+                            <h3 class="text-center text-success"><%= successMessage %></h3>
+                        </div>
+                    <% } %> 
+                <div class="grid">
+                    <% if(prod.length > 0) { %>
+
+                        <% prod.map(c=>{ %>
+                            <article class="card product-item" style="max-height:750px;">
+                                <header class="card__header">
+                                    <h1 class="product__title"><%= c.title %> </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= c.imageURL %> " alt="<%= c.title %> "/>
+                                </div>
+                                <div class="card__content">
+                                    <h2 class="product__price"><%= c.price %></h2>
+                                    <h3 class="text-center text-info mt-2.5">تومان</h3>
+                                    <!-- <p class="product__description"><%= c.discription %></p> -->
+                                </div>
+                                <% if(c.quantity <= 5){ %>
+                                        <small class="text-center text-danger">تنها <%= c.quantity %> تعداد از این محصول باقی مانده است </small>
+                                    <% } %> 
+                                <div class="card__actions">
+                                    <a href="/product-details/<%= c._id %>" class="btn btn-primary">جزییات</a>
+                                    <%- include('../includes/addToCart.ejs' , {prodId : c._id}) %> 
+                                </div>
+                            </article>
+                            <% }) %>
+                                <% } else{ %>
+                                    <h1 class="text-center text-danger">هیچ محصولی یافت نشد است</h1>
+                                    <% } %>
+                </div>
+            </main>
+
+            <%- include('../includes/footer.ejs') %>

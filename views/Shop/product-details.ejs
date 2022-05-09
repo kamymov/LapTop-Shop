@@ -1,0 +1,46 @@
+<%- include('../includes/start.ejs') %>
+
+    <%- include('../includes/header.ejs') %>
+
+        <%- include('../includes/navBar.ejs') %>
+
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 col-lg-6 col-xl-4">
+                            <div class="card text-black">
+                                <br><br>
+                                <h5 class="card-title text-center">
+                                    <%= prod.title %>
+                                </h5>
+                                <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+                                <img src="<%= prod.imageURL %>" class="card-img-top" alt="Apple Computer" />
+                                <div class="card-body">
+                                    <div class="text-center">
+                                    </div>
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <span>
+                                                <%= prod.price %>
+                                                <span>تومان</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                                    </div>
+                                    <h4 class="text-center">
+                                        <%= prod.discription %>
+                                    </h4>
+                                    <div style="width: 154px;margin: 20px auto;">
+                                        <%- include('../includes/addToCart.ejs' , {prodId : prod._id}) %>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <%- include('../includes/footer.ejs') %>

@@ -1,0 +1,49 @@
+<%- include('../start.ejs') %>
+
+    <%- include('../header.ejs') %>
+
+        <%- include('../navBar.ejs') %>
+
+            <div class="container mt-5 mb-5 bg-secondary " style="padding: 20px;border-radius: 5px;width: 40%;">
+
+                <h4 class="text-center text-success">
+                    <% if(editing) { %>ویرایش<% }else { %> افزودن<% } %> محصول
+                </h4>
+
+                <form action="<% if(editing){ %>/admin/edit-product<% }else{ %>/admin/add/product<% } %>" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">اسم محصول</label>
+                        <input placeholder="نام محصول..." type="text" class="form-control" name="title"
+                            value="<% if(editing) { %><%= prod.title %> <% }else{ %><% } %>" />
+                    </div>
+                    <% if(editing){ %>
+                        <input type="hidden" value="<%= prod._id %>" name="prodId">
+                        <% } %> 
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">آدرس عکس</label>
+                        <input placeholder="آدرس..." type="text" class="form-control" name="imageURL"
+                            value="<% if(editing) { %><%= prod.imageURL %> <% }else{ %><% } %>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">قیمت محصول</label>
+                        <input placeholder="قیمت..." type="number" class="form-control" name="price"
+                        value="<% if(editing) { %><%= prod.price %><% }else{ %><% } %>"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">تعداد موجودیت</label>
+                        <input placeholder="تعداد موجودیت..." type="number" name="quantity" class="form-control"
+                        value="<% if(editing) { %><%= prod.quantity %><% }else{ %><% } %>"
+                        />
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="comment">Comments:</label>
+                        <textarea class="form-control" rows="5" id="comment" name="discription"
+                            style="min-height: 150px;max-height: 150px;"><% if(editing){ %><%= prod.discription %><% }else{ %><% } %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-<% if(editing) { %>warning<% }else{ %>primary<% } %> "><% if(editing){ %>ویرایش<% }else{ %>افزودن<% } %></button>
+                </form>
+
+            </div>
+
+            <%- include('../footer.ejs') %>

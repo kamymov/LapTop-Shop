@@ -1,0 +1,41 @@
+<%- include('../includes/start.ejs') %>
+
+    <%- include('../includes/navBar.ejs') %>
+
+        <% if(successMessage.length> 0){ %>
+            <div class="alert alert-success">
+                <h3 class="text-center text-success">
+                    <%= successMessage %>
+                </h3>
+            </div>
+            <% }else if(errorMessage.length> 0){ %>
+                <div class="alert alert-danger">
+                    <h3 class="text-center tect-danger">
+                        <%= errorMessage %> 
+                    </h3>
+                </div>
+                <% } %>
+
+                    <div class="container" id="div_auth">
+
+
+                        <h2 class="text-center text-success">ورود</h2>
+
+                        <form action="/login" method="POST">
+
+                            <label for="username" style="margin: 20px 45px 5px auto">نام کاربری : </label>
+                            <input type="text" class="form-control w-75" style="margin: auto;" name="username">
+
+                            <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
+                            <input type="email" class="form-control w-75" style="margin: auto;" name="email">
+
+                            <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمز عبور : </label>
+                            <input type="password" class="form-control w-75" style="margin: 10px auto;" name="password">
+
+                            <input type="submit" value="ورود" class="btn btn-primary" id="submit">
+                        </form>
+
+                    </div>
+
+
+                    <%- include('../includes/footer.ejs') %>
