@@ -134,7 +134,6 @@ const addToCart = (req ,res) => {
     const productId = req.body.prodId
 
     Product.findById(productId).then(prod => {
-        req.flash('success' , 'محصول شما با موفقیت به سبد خرید اضافه شد!')
         res.redirect('/shop-cart')
         req.user.addToCart(prod)
     })
@@ -145,9 +144,6 @@ const addToCart = (req ,res) => {
 const deleteProduct = (req ,res) => {
 
     const productId = req.body.prodId
-
-
-        req.flash('success' , 'محصول شما بام موفقیت از سبد خرید حذف شد...!')
         res.redirect('/shop-cart')
         req.user.deleteCart(productId)
 
