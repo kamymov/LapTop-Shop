@@ -125,7 +125,6 @@ const logOut = async (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            req.flash('error', 'خروج از حساب کاربری موفقیت آمیز بود...!')
             res.redirect('/login')
         }
     })

@@ -1,4 +1,5 @@
 const { Product } = require("../Models/product.model")
+const { User } = require("../Models/user.model")
 
 const getAddProduct = (req ,res) => {
 
@@ -111,11 +112,25 @@ const postEditProduct = async (req , res) => {
 
 }
 
+const getAdminUsers = async (req ,res) => {
+
+    const user = await User.find()
+
+    res.render('./includes/Admin/users.ejs' , {
+        path : '/admin/account',
+        pageTitle : 'حساب های کاربری',
+        users : user
+    })
+
+    
+}
+
 module.exports={
     getAddProduct,
     postAddProduct,
     getAdminProduct,
     deleteProduct,
     editProduct,
-    postEditProduct
+    postEditProduct,
+    getAdminUsers
 }
