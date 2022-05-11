@@ -2,35 +2,46 @@
 
     <%- include('../includes/navBar.ejs') %>
 
-        <% include('../includes/alert.ejs') %>
-
-            <div class="container" id="div_auth">
-
-
-
-                <h2 class="text-center text-primary">ثبت نام</h2>
-
-                <form action="/signup" method="POST">
-
-                    <label for="username" style="margin: 20px 45px 5px auto">نام کاربری : </label>
-                    <input type="text" class="form-control w-75" style="margin: auto;" name="username">
-
-                    <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
-                    <input type="email" class="form-control w-75" style="margin: auto;" name="email">
-
-                    <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمز عبور : </label>
-                    <input type="password" class="form-control w-75" style="margin: 10px auto;" name="password">
-
-                    <label for="password" style="margin: 40px 45px 5px auto;display: block;">تکرار رمز عبور :
-                    </label>
-                    <input type="password" class="form-control w-75" style="margin: 10px auto;" name="confirmPass">
-
-
-                    <input type="submit" value="ثبت نام" class="btn btn-info" id="submit">
-
-                </form>
-
+        <% if(errorMessage.length> 0){ %>
+            <div class="alert alert-danger">
+                <h1 class="text-center text-danger">
+                    <%= errorMessage %>
+                </h1>
             </div>
+            <% }else if(successMessage.length> 0){ %>
+                <div class="alert alert-success">
+                    <h1 class="text-center text-success">
+                        <%= successMessage %>
+                    </h1>
+                </div>
+                <% } %>
+                    <div class="container" id="div_auth">
 
 
-            <%- include('../includes/footer.ejs') %>
+                        <h2 class="text-center text-primary">ثبت نام</h2>
+
+                        <form action="/signup" method="POST">
+
+                            <label for="username" style="margin: 20px 45px 5px auto">نام کاربری : </label>
+                            <input type="text" class="form-control w-75" style="margin: auto;" name="username">
+
+                            <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
+                            <input type="email" class="form-control w-75" style="margin: auto;" name="email">
+
+                            <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمز عبور : </label>
+                            <input type="password" class="form-control w-75" style="margin: 10px auto;" name="password">
+
+                            <label for="password" style="margin: 40px 45px 5px auto;display: block;">تکرار رمز عبور :
+                            </label>
+                            <input type="password" class="form-control w-75" style="margin: 10px auto;"
+                                name="confirmPass">
+
+
+                            <input type="submit" value="ثبت نام" class="btn btn-info" id="submit">
+
+                        </form>
+
+                    </div>
+
+
+                    <%- include('../includes/footer.ejs') %>

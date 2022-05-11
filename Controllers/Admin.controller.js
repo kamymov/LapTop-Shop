@@ -119,10 +119,26 @@ const getAdminUsers = async (req ,res) => {
     res.render('./includes/Admin/users.ejs' , {
         path : '/admin/account',
         pageTitle : 'حساب های کاربری',
-        users : user
+        users : user,
+        userType : req.user.userType
     })
 
     
+}
+
+const deleteusers = async (req ,res) => {
+
+    const userId = req.body.userId
+
+    User.findByIdAndDelete(userId).then(() => {
+        req.flash('success' , 'کاربر مورد نظر با موفقیت پاک شد...!')
+        return res.redirect('/admin/accounts')
+    }).catch(err => {
+        console.log(err);
+        req.flash('error' , 'متاسفانه عملیات شما با خطا مواجه شد...!')
+        return res.redirect('/admin/accounts')
+    })
+
 }
 
 module.exports={
@@ -132,5 +148,6 @@ module.exports={
     deleteProduct,
     editProduct,
     postEditProduct,
-    getAdminUsers
+    getAdminUsers,
+    deleteusers
 }

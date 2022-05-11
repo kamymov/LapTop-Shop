@@ -4,36 +4,51 @@
 
         <%- include('../navBar.ejs') %>
 
-        <br><br>
+            <a href="" class="btn btn-primary text-center" style="width: 110px;margin: 40px auto;display: block;">افزودن کاربر</a>
 
             <div class="container">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
-                        <tr style="text-align: center;">
-                            <% console.log(users) %>
-                                <th scope="col" class="text-danger">#</th>
-                                <th scope="col">username</th>
-                                <th scope="col">email</th>
+                        <tr class="tr">
+                            <th scope="col" class="text-danger">#</th>
+                            <th scope="col">username</th>
+                            <th scope="col">email</th>
+                            <% if(userType === 3){ %>
                                 <th scope="col">user type</th>
+                                <th>operation</th>
+                                <% } %>
                         </tr>
                     </thead>
 
+                    <tbody>
                     <% users.map(user=> { %>
-                        <tbody>
-                            <tr style="text-align: center;">
+                            <tr class="tr">
                                 <th scope="row" class="text-danger">
                                     <%= user._id %>
                                 </th>
                                 <td>
                                     <%= user.username %>
                                 </td>
-                                <td><%= user.email %> </td>
-                                <td><%= user.userType %> </td>
+                                <td>
+                                    <%= user.email %>
+                                </td>
+                                <% if(userType === 3){ %>
+                                <td>
+                                    <%= user.userType %>
+                                </td>
+                                <td>
+                                    <form action="/admin/delete-user" method="POST">
+                                        <input class="btn btn-danger" type="submit" value="حذف">
+                                        <input type="hidden" name="userId" value="<%= user._id %>">
+                                    </form>
+                                    <a href="/admin/edit-users/<%= user._id %>" class="btn btn-warning">ویرایش</a>
+                                </td>
+                                <% } %>
                             </tr>
-                            
-                            </tr>
-                        </tbody>
+
+                        </tr>
                         <% }) %>
+                    </tbody>
                 </table>
             </div>
 
