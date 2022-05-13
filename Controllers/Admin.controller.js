@@ -1,18 +1,19 @@
 const { Product } = require("../Models/product.model")
 const { User } = require("../Models/user.model")
+const bcrypt = require('bcryptjs')
 
-const getAddProduct = (req ,res) => {
+const getAddProduct = (req, res) => {
 
-    res.render('./includes/Admin/addPRoduct.ejs' , {
-        path : "/admin/add/product",
-        pageTitle : "افزودن محصولات",
-        editing : false,
+    res.render('./includes/Admin/addPRoduct.ejs', {
+        path: "/admin/add/product",
+        pageTitle: "افزودن محصولات",
+        editing: false,
     })
 
 
 }
 
-const postAddProduct = async (req , res) => {
+const postAddProduct = async (req, res) => {
 
     const title = req.body.title.trim()
     const price = req.body.price.trim()
@@ -21,68 +22,68 @@ const postAddProduct = async (req , res) => {
     const quantity = req.body.quantity.trim()
 
     const newProduct = new Product({
-        title : title,
-        price : price,
-        imageURL : imageURL,
-        discription : discription,
-        quantity : quantity
+        title: title,
+        price: price,
+        imageURL: imageURL,
+        discription: discription,
+        quantity: quantity
     })
 
     await newProduct.save()
 
-    req.flash('success' , 'محصول با موفقیت اضافه شد...!')
+    req.flash('success', 'محصول با موفقیت اضافه شد...!')
 
     res.redirect('/products')
 
 }
 
-const getAdminProduct = async (req , res) => {
+const getAdminProduct = async (req, res) => {
 
     const product = await Product.find()
 
-    res.render('./includes/Admin/adminProducts.ejs' , {
-        path : '/admin/products',
-        pageTitle : 'محصولات ادمین',
-        prod : product,
+    res.render('./includes/Admin/adminProducts.ejs', {
+        path: '/admin/products',
+        pageTitle: 'محصولات ادمین',
+        prod: product,
     })
 
 }
 
-const deleteProduct = async (req , res) => {
+const deleteProduct = async (req, res) => {
 
     const prodId = req.params.prodId
-    
-    if(!prodId){
+
+    if (!prodId) {
         return res.redirect('/admin/products')
     }
-    
-    await Product.findOneAndDelete({_id : prodId})
 
-    req.flash('success' , 'محصول با موفقیت حذف شد...!')
+    await Product.findOneAndDelete({ _id: prodId })
+
+    req.flash('success', 'محصول با موفقیت حذف شد...!')
 
     res.redirect('/products')
 }
 
-const editProduct = async (req , res) => {
+const editProduct = async (req, res) => {
 
     const prodId = req.params.prodId
 
-    if(!prodId){
+    if (!prodId) {
         return res.redirect('/admin/products')
     }
 
-    const product = await Product.findOne({_id : prodId})
+    const product = await Product.findOne({ _id: prodId })
 
-    res.render('./includes/Admin/addProduct.ejs' , {
-        path : '/admin/edit/product',
-        pageTitle : 'ویرایش محصول',
-        editing : true,
-        prod : product
+    res.render('./includes/Admin/addProduct.ejs', {
+        path: '/admin/edit/product',
+        pageTitle: 'ویرایش محصول',
+        editing: true,
+        prod: product
     })
 
 }
 
-const postEditProduct = async (req , res) => {
+const postEditProduct = async (req, res) => {
 
     const prodId = req.body.prodId
     const title = req.body.title
@@ -90,58 +91,190 @@ const postEditProduct = async (req , res) => {
     const price = req.body.price
     const quantity = req.body.quantity
 
-    const product = await Product.findOne({_id : prodId})
+    const product = await Product.findOne({ _id: prodId })
 
-    if(!product){
-        req.flash('error' , 'محصول مورد نظر یافت نشد...!')
+    if (!product) {
+        req.flash('error', 'محصول مورد نظر یافت نشد...!')
         return res.redirect('/admin/products')
     }
 
     product.set({
-        title : title,
-        imageURL : imageURL,
-        price : price,
-        quantity : quantity 
+        title: title,
+        imageURL: imageURL,
+        price: price,
+        quantity: quantity
     })
 
     product.save().then(() => {
-        req.flash('success' , 'محصول با موفقیت ویرایش شد...!')
+        req.flash('success', 'محصول با موفقیت ویرایش شد...!')
         res.redirect('/admin/products')
     })
 
 
 }
 
-const getAdminUsers = async (req ,res) => {
+const getAdminUsers = async (req, res) => {
 
     const user = await User.find()
 
-    res.render('./includes/Admin/users.ejs' , {
-        path : '/admin/account',
-        pageTitle : 'حساب های کاربری',
-        users : user,
-        userType : req.user.userType
+    const adminSelf = user.filter(f => {
+        return f._id.toString() === req.user._id.toString()
     })
 
-    
+    const limitUser = user.filter(f => {
+        return f.userType !== 3
+    })
+
+    limitUser.unshift(adminSelf[0])
+
+    res.render('./includes/Admin/users.ejs', {
+        path: '/admin/account',
+        pageTitle: 'حساب های کاربری',
+        users: limitUser,
+        userType: req.user.userType
+    })
+
+
 }
 
-const deleteusers = async (req ,res) => {
+const deleteusers = async (req, res) => {
 
     const userId = req.body.userId
 
     User.findByIdAndDelete(userId).then(() => {
-        req.flash('success' , 'کاربر مورد نظر با موفقیت پاک شد...!')
+        req.flash('success', 'کاربر مورد نظر با موفقیت پاک شد...!')
         return res.redirect('/admin/accounts')
     }).catch(err => {
         console.log(err);
-        req.flash('error' , 'متاسفانه عملیات شما با خطا مواجه شد...!')
+        req.flash('error', 'متاسفانه عملیات شما با خطا مواجه شد...!')
         return res.redirect('/admin/accounts')
     })
 
 }
 
-module.exports={
+const adminAddAccount = async (req, res) => {
+
+    res.render('./includes/Admin/addAccount.ejs', {
+        path: '/admin/addAccount',
+        pageTitle: 'افزودن کاربر',
+        userType: req.user.userType,
+        editing: false
+    })
+
+
+}
+
+const adminSignUp = async (req, res) => {
+
+    const username = req.body.username
+    const email = req.body.email
+    const password = req.body.password
+    const userType = req.body.userType
+
+    if (!username) {
+        req.flash('error', 'مقدار نام کاربری خالی است')
+        return res.redirect('/admin/addAccount')
+    }
+    if (!email) {
+        req.flash('error', 'مقدار ایمیل خالی است')
+        return res.redirect('/admin/addAccount')
+    }
+    if (!password) {
+        req.flash('error', 'مقدار رمز عبور خالی است')
+        return res.redirect('/admin/addAccount')
+    }
+
+    const userExist = await User.find().or([
+        { username: username },
+        { email: email }
+    ])
+
+    if (userExist.length > 0) {
+        req.flash('error', 'متاسفانه ایمیل یا نام کاربری موجود است...!')
+        return res.redirect('/admin/addAccount')
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12)
+
+    const newUser = new User({
+        username: username,
+        email: email,
+        password: hashedPassword,
+        userType: userType
+    })
+
+    await newUser.save()
+
+    return res.redirect('/admin/accounts')
+
+}
+
+const getAdminEditUsers = async (req, res) => {
+
+    const userId = req.params.userId
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+        req.flash('error', 'هیچ کاربری یافت نشد...!')
+        return res.redirect('/admin/accounts')
+    }
+
+    res.render('./includes/Admin/addAccount.ejs', {
+        path: "admin/editAcount",
+        pageTitle: 'ویرایش کاربر',
+        editing: true,
+        user: user
+    })
+
+
+}
+
+const postUserEdit = async (req, res) => {
+
+    const userId = req.body.userId
+    const username = req.body.username
+    const email = req.body.email
+    const userType = req.body.userType
+
+    if (!username) {
+        req.flash('error', 'نام کاربری ارسال نشده است')
+        return res.redirect('/admin/accounts')
+    }
+    if (!email) {
+        req.flash('error', 'ایمیل ارسال نشده است')
+        return res.redirect('/admin/accounts')
+    }
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+        req.flash('error', 'متاسفانه کاربر مورد نظر یافت نشد...!')
+        return res.redirect('/admin/accounts')
+    }
+
+    user.set({
+        username: username,
+        email: email,
+        userType: userType
+    })
+
+    await user.save()
+
+    return res.redirect('/admin/accounts')
+
+}
+
+const adminOrders = async (req ,res) => {
+
+    res.render('./includes/Admin/orders.ejs' , {
+        path : '/admin/orders',
+        pageTitle : 'سفارشات',
+    })
+
+}
+
+module.exports = {
     getAddProduct,
     postAddProduct,
     getAdminProduct,
@@ -149,5 +282,10 @@ module.exports={
     editProduct,
     postEditProduct,
     getAdminUsers,
-    deleteusers
+    deleteusers,
+    adminAddAccount,
+    adminSignUp,
+    getAdminEditUsers,
+    postUserEdit,
+    adminOrders
 }

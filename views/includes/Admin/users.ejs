@@ -4,7 +4,7 @@
 
         <%- include('../navBar.ejs') %>
 
-            <a href="" class="btn btn-primary text-center" style="width: 110px;margin: 40px auto;display: block;">افزودن کاربر</a>
+            <a href="/admin/addAccount" class="btn btn-primary text-center" style="width: 110px;margin: 40px auto;display: block;">افزودن کاربر</a>
 
             <div class="container">
                 <table class="table table-striped">
@@ -41,7 +41,7 @@
                                         <input class="btn btn-danger" type="submit" value="حذف">
                                         <input type="hidden" name="userId" value="<%= user._id %>">
                                     </form>
-                                    <a href="/admin/edit-users/<%= user._id %>" class="btn btn-warning">ویرایش</a>
+                                    <a href="/admin/editAccount/<%= user._id %>" class="btn btn-warning">ویرایش</a>
                                 </td>
                                 <% } %>
                             </tr>

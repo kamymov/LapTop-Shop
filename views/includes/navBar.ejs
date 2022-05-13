@@ -22,37 +22,42 @@
                 ادمین</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <% if(path === "/admin/account") {%>active<% } else {} %>" href="/admin/accounts">حساب ها</a>
+            <a class="nav-link <% if(path === "/admin/account") {%>active<% } else {} %>" href="/admin/accounts">حساب
+                ها</a>
+          </li>
+          <li class="nav-ite,">
+            <a class="nav-link <% if(path === "/admin/orders") {%>active<% } else {} %>"
+                href="/admin/orders">سفارشات</a>
           </li>
           <% } %>
-          <% } %>
+            <% } %>
+    </ul>
+
+    <div style="width: 300px;margin: auto;">
+      <form action="/search-engine" method="POST">
+        <input type="search" class="form-control" name="search_input" placeholder="جستجو..."
+          style="width: 300px;letter-spacing: 0.5px;">
+      </form>
+    </div>
+
+    <div>
+      <% if(!isAuthenticated){ %>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/login" class="nav-link <% if(path === '/login') { %>active<% } %>">ورود</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <% if(path === '/singup'){ %>active<% } %>" href="/signup">ثبت نام</a>
+          </li>
         </ul>
-
-        <div style="width: 300px;margin: auto;">
-          <form action="/search-engine" method="POST">
-            <input type="search" class="form-control" name="search_input" placeholder="جستجو..."
-              style="width: 300px;letter-spacing: 0.5px;">
-          </form>
-        </div>
-
-        <div>
-          <% if(!isAuthenticated){ %>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a href="/login" class="nav-link <% if(path === '/login') { %>active<% } %>">ورود</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link <% if(path === '/singup'){ %>active<% } %>" href="/signup">ثبت نام</a>
-              </li>
-            </ul>
-            <% }else{ %>
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a href="/logout" class="nav-link">خروج</a>
-                </li>
-              </ul>
-              <% } %>
-        </div>
+        <% }else{ %>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="/logout" class="nav-link">خروج</a>
+            </li>
+          </ul>
+          <% } %>
+    </div>
 
   </div>
 

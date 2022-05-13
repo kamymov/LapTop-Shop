@@ -239,3 +239,14 @@ form {
 .tr{
   text-align: center;
 }
+
+#select{
+  outline: none;
+  width: 100px;
+  display: block;
+  margin: 40px auto;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
