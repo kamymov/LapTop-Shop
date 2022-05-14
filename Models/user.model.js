@@ -85,6 +85,16 @@ uesrSchema.methods.deleteCart = function(productId){
 
 }
 
+uesrSchema.methods.clearCart = function(){
+
+    this.cart = {
+        items : []
+    }
+
+    return this.save()
+
+}
+
 const User = mongoose.model('User' , uesrSchema)
 
 module.exports={

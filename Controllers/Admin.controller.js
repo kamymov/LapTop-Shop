@@ -1,6 +1,7 @@
 const { Product } = require("../Models/product.model")
 const { User } = require("../Models/user.model")
 const bcrypt = require('bcryptjs')
+const { Orders } = require("../Models/orders.model")
 
 const getAddProduct = (req, res) => {
 
@@ -267,10 +268,42 @@ const postUserEdit = async (req, res) => {
 
 const adminOrders = async (req ,res) => {
 
+    const orders = await Orders.find()
+
     res.render('./includes/Admin/orders.ejs' , {
         path : '/admin/orders',
         pageTitle : 'سفارشات',
+        orders : orders
     })
+
+}
+
+const completeSession = async (req , res) => {
+
+    const userId = req.body.userId
+    const level = req.body.level
+
+    if(!userId){
+        req.flash('error' , 'متاسفانه نام کاربری ارسال نشده است...!')
+        return res.redirect('/admin/orders')
+    }
+    
+    const order = await Orders.findById(userId)
+
+    if(!order){
+        req.flash('error' , 'متاسفانه سفارش مورد نظر یافت نشد...!')
+        return res.redirect('admin/orders')
+    }
+
+    await order.set({
+        level : level + 1
+    })
+
+    req.flash('success' , 'مرحله با موفقیت انجام شد...!')
+
+    return order.save()
+
+
 
 }
 
