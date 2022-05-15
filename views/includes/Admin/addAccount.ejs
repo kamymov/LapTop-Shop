@@ -1,58 +1,83 @@
 <%- include('../start.ejs') %>
 
-    <%- include('../navBar.ejs') %> 
+    <%- include('../navBar.ejs') %>
 
-    <% if(errorMessage.length> 0){ %>
-        <div class="alert alert-danger">
-            <h1 class="text-center text-danger">
-                <%= errorMessage %>
-            </h1>
-        </div>
-        <% }else if(successMessage.length> 0){ %>
-            <div class="alert alert-success">
-                <h1 class="text-center text-success">
-                    <%= successMessage %>
+        <% if(errorMessage.length> 0){ %>
+            <div class="alert alert-danger">
+                <h1 class="text-center text-danger">
+                    <%= errorMessage %>
                 </h1>
             </div>
-            <% } %>
-                <div class="container" id="div_auth">
-                    
-                       
-
-                    <h2 class="text-center text-<% if(editing){ %>warning<% }else{ %>primary<% } %>"><% if(editing){ %>ویرایش<% }else{ %>افزودن<% } %>    کاربر</h2>
-
-                    <form action="/admin<% if(editing){ %>/editAccount<% }else{ %>/signup<% } %>" method="POST">
-
-                        <% if(editing){ %>
-                            <input type="hidden" value="<%= user._id %>" name="userId">
-                            <% } %> 
-
-                        <label for="username" style="margin: 20px 45px 5px auto">نام کاربری : </label>
-                        <input value="<% if(editing){ %><%= user.username %><% }else{ %><% } %>" type="text" class="form-control w-75" style="margin: auto;" name="username" placeholder="نام کاربری...">
-
-                        <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
-                        <input value="<% if(editing){ %><%= user.email %><% }else{ %><% } %>" type="email" class="form-control w-75" style="margin: auto;" name="email" placeholder="ایمیل...">
-
-                        <% if(!editing){ %> 
-
-                        <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمز عبور : </label>
-                        <input type="password" class="form-control w-75" style="margin: 10px auto;" name="password" placeholder="رمز عبور...">
-                        <% } %> 
-                            <% if(userType === 3){ %> 
-
-                            <select name="userType" id="select" class="form-select">
-
-                                <option value="1">User</option>
-                                <option value="2">Admin</option>
-                            </select>
-
-                            <% } %> 
-
-                        <input type="submit" value="<% if(editing){ %>ویرایش<% }else{ %>ثبت نام<% } %>" class="btn btn-<% if(editing){ %>warning<% }else{ %>info<% } %>" id="submit">
-
-                    </form>
-
+            <% }else if(successMessage.length> 0){ %>
+                <div class="alert alert-success">
+                    <h1 class="text-center text-success">
+                        <%= successMessage %>
+                    </h1>
                 </div>
+                <% } %>
+                    <div class="container" id="div_auth">
 
 
-    <%- include('../footer.ejs') %> 
+
+                        <h2 class="text-center text-<% if(editing){ %>warning<% }else{ %>primary<% } %>">
+                            <% if(editing){ %>ویرایش<% }else{ %>افزودن<% } %> کاربر
+                        </h2>
+
+                        <form action="/admin/<% if(editing){ %>editAccount<% }else{ %>signup<% } %>" method="POST">
+
+                            <% if(editing){ %>
+                                <input type="hidden" value="<%= user._id %>" name="userId">
+                                <% } %>
+
+                                    <label for="username" style="margin: 20px 45px 5px auto">نام کاربری : </label>
+                                    <input value="<% if(editing){ %><%= user.username %><% }else{ %><% } %>" type="text"
+                                        class="form-control w-75" style="margin: auto;" name="username"
+                                        placeholder="نام کاربری...">
+
+                                    <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل :
+                                    </label>
+                                    <input value="<% if(editing){ %><%= user.email %><% }else{ %><% } %>" type="email"
+                                        class="form-control w-75" style="margin: auto;" name="email"
+                                        placeholder="ایمیل...">
+
+                                    <label for="adress" style="margin: 40px 45px 5px auto;display: block;">آدرس :
+                                    </label>
+                                    <input type="text" class="form-control w-75" style="margin: 10px auto;"
+                                        name="adress" value="<% if(editing){ %><%= user.adress %><% } %>" placeholder="آدرس...">
+
+                                    <label for="postalCode" style="margin: 40px 45px 5px auto;display: block;">کد
+                                        پستی :
+                                    </label>
+                                    <input type="number" class="form-control w-75" style="margin: 10px auto;"
+                                        name="postalCode" value="<% if(editing){ %><%= user.postalCode %><% } %>" placeholder="کد پستی...">
+
+                                    <% if(!editing){ %>
+
+                                        <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمز
+                                            عبور : </label>
+                                        <input type="password" class="form-control w-75" style="margin: 10px auto;"
+                                            name="password" placeholder="رمز عبور...">
+
+                                        <% } %>
+                                            <% if(userType===3){ %>
+
+                                                <select name="userType" id="select" class="form-select">
+
+                                                    <option value="1">User</option>
+                                                    <option value="2">Admin</option>
+                                                </select>
+
+                                                <% } %>
+
+                                                <input type="submit" class="w-75 container d-block btn btn-<% if(editing){ %>warning<% }else{ %>primary<% } %>" value="<% if(editing){ %>ویرایش<% }else{ %>ثبت<% } %>">
+
+
+                        </form>
+
+
+
+                    </div>
+
+                    <br><br>
+
+                    <%- include('../footer.ejs') %>

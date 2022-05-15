@@ -4,54 +4,61 @@
 
     <%- include('../navBar.ejs') %>
 
-    <% if(orders.length > 0){ %> 
+      <% if(orders.length> 0){ %>
 
-      <main>
+        <main>
 
-        <ul class="orders">
+          <ul class="orders">
 
-          <% orders.forEach(or=> { %>
+            <% orders.forEach(or=> { %>
 
-            <li class="orders_item">
-              <h1 class="text-secondary">
-                <%= or.user.name %>
-              </h1>
-              <ul class="orders_products">
-                <% or.products.forEach(p=> { %>
-                  <li class="orders_products_item">
-                    <%= p.product.title %> <br> (<%= p.quantity %>)
-                  </li>
-                  <% }); %>
-              </ul>
-              <h2 class="text-primary text-center">
-                <% if(or.level===1){ %>
-                  ثبت شده
-                  <% }else if(or.level===2){ %>
-                    در حال آماده سازی
-                    <% }else if(or.level===3){ %>
-                      تحویل به پست
-                      <% }else if(or.level===4){ %>
+              <li class="orders_item">
+                <h1 class="text-secondary">
+                  <%= or.user.name %>
+                </h1>
+                <ul class="orders_products">
+                  <% or.products.forEach(p=> { %>
+                    <li class="orders_products_item">
+                      <%= p.product.title %> <br> (<%= p.quantity %>)
+                    </li>
+                    <% }); %>
+                </ul>
+                <h2 class="text-primary text-center">
+                  <% if(or.level===1){ %>
+                    ثبت شده
+                    <% }else if(or.level===2){ %>
+                      در حال آماده سازی
+                      <% }else if(or.level===3){ %>
+                        تحویل به پست
+                        <% }else if(or.level===4){ %>
                           تحویل شده
-                        <% } %>
-              </h2>
-              <% if(or.level < 4){ %>
-                  <form action="/complete-session" method="POST">
-                    <input type="submit" value="تکمیل مرحله" class="btn btn-dark">
+                          <% } %>
+                </h2>
+                <% if(or.level < 4){ %>
+                  <% if(or.level > 1){ %> 
+                  <form action="/admin/compelete-session" method="POST">
                     <input type="hidden" name="userId" value="<%= or._id %>">
-                    <input type="hidden" name="" value="<%= or.level %>">
+                    <input type="hidden" name="level" value="<%= or.level - 1 %>">
+                    <input type="submit" value="مرحله قبل" class="btn btn-warning">
                   </form>
-                <% } %> 
-            </li>
+                  <% }%>
+                  <form action="/admin/compelete-session" method="POST">
+                    <input type="hidden" name="userId" value="<%= or._id %>">
+                    <input type="hidden" name="level" value="<%= or.level + 1 %>">
+                    <input type="submit" value="تکمیل مرحله" class="btn btn-dark">
+                  </form>
+                  <% } %>
+              </li>
 
-            <% }); %>
+              <% }); %>
 
-        </ul>
+          </ul>
 
-      </main>
+        </main>
 
-      <% }else { %>
-        <h1 class="text-danger text-center">هیچ سفارشی ثبت نشده است</h1>
-        <% } %> 
+        <% }else { %>
+          <h1 class="text-danger text-center">هیچ سفارشی ثبت نشده است</h1>
+          <% } %>
 
 
-      <%- include('../footer.ejs') %>
+            <%- include('../footer.ejs') %>

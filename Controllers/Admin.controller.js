@@ -2,6 +2,7 @@ const { Product } = require("../Models/product.model")
 const { User } = require("../Models/user.model")
 const bcrypt = require('bcryptjs')
 const { Orders } = require("../Models/orders.model")
+const e = require("connect-flash")
 
 const getAddProduct = (req, res) => {
 
@@ -237,6 +238,15 @@ const postUserEdit = async (req, res) => {
     const username = req.body.username
     const email = req.body.email
     const userType = req.body.userType
+    const adress = req.body.adress
+    const postalCode = req.body.postalCode
+
+    if(req.user.userType <= 2){
+        if(req.user._id.toString() !== userId.toString()){
+            req.flash('error' , 'متاسفانه شما قادر به انجام این عملیات نیستید...!')
+            return res.redirect('/')
+        }
+    }
 
     if (!username) {
         req.flash('error', 'نام کاربری ارسال نشده است')
@@ -257,12 +267,18 @@ const postUserEdit = async (req, res) => {
     user.set({
         username: username,
         email: email,
-        userType: userType
+        userType: userType,
+        adress : adress,
+        postalCode : postalCode
     })
 
     await user.save()
 
-    return res.redirect('/admin/accounts')
+    if(req.user.userType <= 2){
+        return res.redirect('/profile')
+    }else{
+        return res.redirect('/admin/accounts')
+    }
 
 }
 
@@ -283,6 +299,7 @@ const completeSession = async (req , res) => {
     const userId = req.body.userId
     const level = req.body.level
 
+
     if(!userId){
         req.flash('error' , 'متاسفانه نام کاربری ارسال نشده است...!')
         return res.redirect('/admin/orders')
@@ -296,13 +313,14 @@ const completeSession = async (req , res) => {
     }
 
     await order.set({
-        level : level + 1
+        level : level
     })
 
     req.flash('success' , 'مرحله با موفقیت انجام شد...!')
 
-    return order.save()
+    await order.save()
 
+    return res.redirect('/admin/orders')
 
 
 }
@@ -320,5 +338,6 @@ module.exports = {
     adminSignUp,
     getAdminEditUsers,
     postUserEdit,
-    adminOrders
+    adminOrders,
+    completeSession,
 }

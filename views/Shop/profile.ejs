@@ -1,0 +1,41 @@
+<%- include('../includes/start.ejs') %>
+
+  <%- include('../includes/header.ejs') %>
+
+    <%- include('../includes/navBar.ejs') %> 
+
+
+        <div class="alert alert-secondary container">
+
+            <h3 class="text-info">نام کاربری : <span class="text-dark"><%= user.username %></span></h3>
+
+            <br>
+
+            <h3 class="text-info">ایمیل : <span class="text-dark"><%= user.email %></span></h3>
+            
+            <br>
+
+            <h3 class="text-info">آدرس : <span class="text-dark"><%= user.adress %></span></h3>
+
+            <br>
+
+            <h3 class="text-info">کد پستی : <span class="text-dark"><%= user.postalCode %></span></h3>
+
+            <br>
+
+            <h3 class="text-info">تعداد سفارشات : <span class="text-dark"><%= ordersLength %></span></h3>
+            
+            <br>
+
+            <h3 class="text-info">سفارشات تحویل شده : <span class="text-dark"><%= compeleteOrders %></span></h3>
+            
+            <br>
+
+            <h3 class="text-info">تعداد کالا های سبد خرید : <span class="text-dark"><%= user.cart.items.length %></span></h3>
+
+            <br>
+            <a href="/editAccount" class="btn btn-warning">ویرایش</a>
+
+        </div>
+
+    <%- include('../includes/footer.ejs') %> 
