@@ -113,7 +113,21 @@ const postSignUp = async (req, res) => {
 
     if (password != confirmPass) {
         req.flash('error', 'مقادیر رمز عبور با هم برابر نیست...!')
-        return res.redirect('/singup')
+        return res.redirect('/signup')
+    }
+
+    const ExistUserEmail = await User.findOne({email : email})
+
+    if(ExistUserEmail){
+        req.flash('error' , 'این ایمیل قبلا ثبت نام کرده است...!')
+        return res.redirect('/signup')
+    }
+
+    const ExistUserName = await User.findOne({username : username})
+    
+    if(ExistUserName){
+        req.flash('error' , 'این نام کاربری قبلا ثبت نام کرده است...!')
+        return res.redirect('/signup')
     }
 
     const hashedPassword = await bcrypt.hash(password, 12)
