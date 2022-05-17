@@ -43,13 +43,18 @@
                                     <label for="adress" style="margin: 40px 45px 5px auto;display: block;">آدرس :
                                     </label>
                                     <input type="text" class="form-control w-75" style="margin: 10px auto;"
-                                        name="adress" value="<% if(editing){ %><%= user.adress %><% } %>" placeholder="آدرس...">
+                                        name="adress" value="<% if(editing){ %><%= user.adress %><% } %>"
+                                        placeholder="آدرس...">
 
                                     <label for="postalCode" style="margin: 40px 45px 5px auto;display: block;">کد
                                         پستی :
                                     </label>
                                     <input type="number" class="form-control w-75" style="margin: 10px auto;"
-                                        name="postalCode" value="<% if(editing){ %><%= user.postalCode %><% } %>" placeholder="کد پستی...">
+                                        name="postalCode" value="<% if(editing){ %><%= user.postalCode %><% } %>"
+                                        placeholder="کد پستی...">
+
+
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                                     <% if(!editing){ %>
 
@@ -69,7 +74,9 @@
 
                                                 <% } %>
 
-                                                <input type="submit" class="w-75 container d-block btn btn-<% if(editing){ %>warning<% }else{ %>primary<% } %>" value="<% if(editing){ %>ویرایش<% }else{ %>ثبت<% } %>">
+                                                    <input type="submit"
+                                                        class="w-75 container d-block btn btn-<% if(editing){ %>warning<% }else{ %>primary<% } %>"
+                                                        value="<% if(editing){ %>ویرایش<% }else{ %>ثبت<% } %>">
 
 
                         </form>

@@ -39,6 +39,7 @@
                     <input type="hidden" name="userId" value="<%= or._id %>">
                     <input type="hidden" name="level" value="<%= or.level - 1 %>">
                     <input type="submit" value="مرحله قبل" class="btn btn-warning">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   </form>
                   <% }%>
                     <% if(or.level < 4){ %>
@@ -46,6 +47,7 @@
                         <input type="hidden" name="userId" value="<%= or._id %>">
                         <input type="hidden" name="level" value="<%= or.level + 1 %>">
                         <input type="submit" value="تکمیل مرحله" class="btn btn-dark">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       </form>
                       <% } %>
               </li>

@@ -37,6 +37,7 @@
       <form action="/search-engine" method="POST">
         <input type="search" class="form-control" name="search_input" placeholder="جستجو..."
           style="width: 300px;letter-spacing: 0.5px;">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       </form>
     </div>
 

@@ -11,7 +11,7 @@
             <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
             <input type="email" class="form-control w-75" style="margin: auto;" placeholder="ایمیل..." name="email">
 
-
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
             <input type="submit" value="ارسال" class="btn btn-success" id="submit">
         </form>

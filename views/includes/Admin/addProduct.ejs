@@ -16,6 +16,9 @@
                         <input placeholder="نام محصول..." type="text" class="form-control" name="title"
                             value="<% if(editing) { %><%= prod.title %> <% }else{ %><% } %>" />
                     </div>
+
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
                     <% if(editing){ %>
                         <input type="hidden" value="<%= prod._id %>" name="prodId">
                         <% } %> 

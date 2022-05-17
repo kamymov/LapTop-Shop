@@ -12,6 +12,7 @@ const { User } = require("./Models/user.model")
 const MongoDBStore = require('connect-mongodb-session')(session)
 const app = express()
 const flash = require("connect-flash")
+const csrf = require("csurf")
 
 const store = new MongoDBStore({
     uri : MongoDB_URI,
@@ -36,7 +37,10 @@ app.use(session({
     store : store
 }))
 
+const csrfProtection = csrf()
+
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(csrfProtection);
 
 // Set 
 
@@ -65,6 +69,7 @@ app.use((req , res , next) => {
 app.use((req ,res , next) => {
 
     res.locals.isAuthenticated = req.session.isLoggedIn
+    res.locals.csrfToken = req.csrfToken()
     res.locals.errorMessage = req.flash('error')
     res.locals.successMessage = req.flash('success')
     if(req.session.isLoggedIn){
