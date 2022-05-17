@@ -24,13 +24,18 @@
                         <form action="/login" method="POST">
 
                             <label for="username" style="margin: 20px 45px 5px auto">نام کاربری : </label>
-                            <input type="text" class="form-control w-75" style="margin: auto;" name="username">
+                            <input type="text" class="form-control w-75" style="margin: auto;" placeholder="نام کاربری..." name="username">
 
                             <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
-                            <input type="email" class="form-control w-75" style="margin: auto;" name="email">
+                            <input type="email" class="form-control w-75" style="margin: auto;" placeholder="ایمیل..." name="email">
 
                             <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمز عبور : </label>
-                            <input type="password" class="form-control w-75" style="margin: 10px auto;" name="password">
+                            <input type="password" class="form-control w-75" style="margin: 10px auto;"  placeholder="رمزعبور..." name="password">
+
+                            <br>
+
+                            <a href="/resetPass" class="text-center d-block text-primary">فراموشی رمزعبور</a>
+
 
                             <input type="submit" value="ورود" class="btn btn-primary" id="submit">
                         </form>

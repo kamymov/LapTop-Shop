@@ -45,6 +45,12 @@ const uesrSchema = new Schema({
             }
         }]
     },
+    resetToken : {
+        type : String
+    },
+    expiredResetToken : {
+        type : Date
+    },
     date: {
         type: Date,
         default: Date.now()

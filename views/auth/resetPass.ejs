@@ -1,0 +1,27 @@
+<%- include('../includes/start.ejs') %>
+
+    <%- include('../includes/navBar.ejs') %>
+
+        <div class="container" id="div_auth">
+
+            <h2 class="text-center text-primary">رمز عبور جدید</h2>
+
+            <form action="/newPass" method="POST">
+
+                <label for="password" style="margin: 40px 45px 5px auto;display: block;">رمزعبور : </label>
+                <input type="password" class="form-control w-75" style="margin: auto;" placeholder="رمزعبور..."
+                    name="password">
+
+                <label for="conformPass" style="margin: 40px 45px 5px auto;display: block;">تکرار رمزعبور : </label>
+                <input type="password" class="form-control w-75" style="margin: auto;" placeholder="تکرار رمزعبور..."
+                    name="conformPass">
+
+                <input type="hidden" name="userId" value="<%= userId %>">
+
+
+                <input type="submit" value="ارسال" class="btn btn-primary" id="submit">
+            </form>
+
+        </div>
+
+        <%- include('../includes/footer.ejs') %>

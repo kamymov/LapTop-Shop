@@ -1,0 +1,21 @@
+<%- include('../includes/start.ejs') %>
+
+    <%- include('../includes/navBar.ejs') %> 
+
+    <div class="container" id="div_auth">
+
+        <h2 class="text-center text-success">بازیابی رمز عبور</h2>
+
+        <form action="/resetPass" method="POST">
+
+            <label for="email" style="margin: 40px 45px 5px auto;display: block;">ایمیل : </label>
+            <input type="email" class="form-control w-75" style="margin: auto;" placeholder="ایمیل..." name="email">
+
+
+
+            <input type="submit" value="ارسال" class="btn btn-success" id="submit">
+        </form>
+
+    </div>
+
+    <%- include('../includes/footer.ejs') %> 

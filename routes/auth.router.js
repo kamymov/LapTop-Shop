@@ -1,5 +1,5 @@
 const express = require('express')
-const {getLogin , getSignUp , postSignUp, postLogin, logOut, getprofile, editProfile} = require('../Controllers/auth.controller')
+const {getLogin , getSignUp , postSignUp, postLogin, logOut, getprofile, editProfile, getForgotPass, postResetPass, getTokenEmail, postNewPass} = require('../Controllers/auth.controller')
 
 const authRouter = express.Router()
 
@@ -17,6 +17,13 @@ authRouter.get('/profile' , getprofile)
 
 authRouter.get('/editAccount' , editProfile)
 
+authRouter.get('/resetPass' , getForgotPass)
+
+authRouter.post('/resetPass' , postResetPass)
+
+authRouter.get('/resetPass/:token' , getTokenEmail)
+
+authRouter.post('/newPass' , postNewPass)
 
 module.exports={
     authRouter

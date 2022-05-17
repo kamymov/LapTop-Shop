@@ -34,20 +34,20 @@
                           تحویل شده
                           <% } %>
                 </h2>
-                <% if(or.level < 4){ %>
-                  <% if(or.level > 1){ %> 
+                <% if(or.level> 1){ %>
                   <form action="/admin/compelete-session" method="POST">
                     <input type="hidden" name="userId" value="<%= or._id %>">
                     <input type="hidden" name="level" value="<%= or.level - 1 %>">
                     <input type="submit" value="مرحله قبل" class="btn btn-warning">
                   </form>
                   <% }%>
-                  <form action="/admin/compelete-session" method="POST">
-                    <input type="hidden" name="userId" value="<%= or._id %>">
-                    <input type="hidden" name="level" value="<%= or.level + 1 %>">
-                    <input type="submit" value="تکمیل مرحله" class="btn btn-dark">
-                  </form>
-                  <% } %>
+                    <% if(or.level < 4){ %>
+                      <form action="/admin/compelete-session" method="POST">
+                        <input type="hidden" name="userId" value="<%= or._id %>">
+                        <input type="hidden" name="level" value="<%= or.level + 1 %>">
+                        <input type="submit" value="تکمیل مرحله" class="btn btn-dark">
+                      </form>
+                      <% } %>
               </li>
 
               <% }); %>

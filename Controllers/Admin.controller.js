@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs')
 const { Orders } = require("../Models/orders.model")
 const e = require("connect-flash")
 
+// add product
+
 const getAddProduct = (req, res) => {
 
     res.render('./includes/Admin/addPRoduct.ejs', {
@@ -38,6 +40,8 @@ const postAddProduct = async (req, res) => {
     res.redirect('/products')
 
 }
+
+// edit product
 
 const getAdminProduct = async (req, res) => {
 
@@ -114,6 +118,8 @@ const postEditProduct = async (req, res) => {
 
 
 }
+
+// add or edit users
 
 const getAdminUsers = async (req, res) => {
 
@@ -282,6 +288,8 @@ const postUserEdit = async (req, res) => {
 
 }
 
+ // admin orders
+
 const adminOrders = async (req ,res) => {
 
     const orders = await Orders.find()
@@ -293,6 +301,8 @@ const adminOrders = async (req ,res) => {
     })
 
 }
+
+// orders session
 
 const completeSession = async (req , res) => {
 
